@@ -12,8 +12,6 @@ class CPPFLAPPYBIRD_API AA_Obstacle : public AActor
 {
 	GENERATED_BODY()
 
-
-
 public:	
 	// Sets default values for this actor's properties
 	AA_Obstacle();
@@ -23,7 +21,8 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	float Speed = 500.0f;
-	
+
+	UFUNCTION()
 	void MoveForward(float DeltaTime);
 	
 private:

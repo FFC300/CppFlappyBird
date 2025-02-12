@@ -3,7 +3,6 @@
 
 #include "PW_Bird.h"
 
-#include "Components/ArrowComponent.h"
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values
@@ -41,7 +40,10 @@ void APW_Bird::BeginPlay()
 	Mesh->BodyInstance.bLockRotation = true;
 	Mesh->BodyInstance.bLockXTranslation = true;
 	Mesh->BodyInstance.bLockYTranslation = true;
+
+	//Enables collisions
 	BoxCollider->OnComponentBeginOverlap.AddDynamic(this, &APW_Bird::OnOverlapBegin);
+	
 }
 
 // Called every frame
@@ -71,7 +73,6 @@ void APW_Bird::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* 
 	if (OtherActor->ActorHasTag("Obstacle"))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Hitted"));
-		UGameplayStatics::OpenLevel(this, FName(TEXT("World")), true);
+		//UGameplayStatics::OpenLevel(this, FName(TEXT("World")), true);
 	}
-	
 }

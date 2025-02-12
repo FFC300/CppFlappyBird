@@ -3,10 +3,6 @@
 
 #include "A_Obstacle.h"
 
-#include <ThirdParty/ShaderConductor/ShaderConductor/External/DirectXShaderCompiler/include/dxc/DXIL/DxilConstants.h>
-
-#include "SkeletonTreeBuilder.h"
-
 // Sets default values
 AA_Obstacle::AA_Obstacle()
 {
@@ -39,6 +35,6 @@ void AA_Obstacle::Tick(float DeltaTime)
 
 void AA_Obstacle::MoveForward(float DeltaTime)
 {
-	FVector NewLocation = GetActorLocation() + (FVector::LeftVector * DeltaTime * Speed);
+	FVector NewLocation = GetActorLocation() + (FVector::BackwardVector * DeltaTime * Speed);
 	this->SetActorLocation(NewLocation);
 }
