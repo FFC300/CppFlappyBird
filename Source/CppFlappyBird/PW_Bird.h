@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GMB_GameMode.h"
 #include "Camera/CameraComponent.h"
 #include "Components/BoxComponent.h"
 #include "Components/PointLightComponent.h"
@@ -38,6 +39,9 @@ private:
 	UPROPERTY(EditAnywhere)
 	float JumpForce = 1000.0f;
 
+	UPROPERTY()
+	AGMB_GameMode* GameMode;
+	
 	UFUNCTION()
 	void Jump();
 

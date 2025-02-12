@@ -17,6 +17,7 @@ AA_Obstacle::AA_Obstacle()
 
 	TopMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Top"));
 	TopMesh->SetupAttachment(GapCollider);
+	
 }
 
 // Called when the game starts or when spawned

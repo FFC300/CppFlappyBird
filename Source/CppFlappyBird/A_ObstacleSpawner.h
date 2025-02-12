@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "A_Obstacle.h"
+#include "GMB_GameMode.h"
 #include "Components/ArrowComponent.h"
 #include "GameFramework/Actor.h"
 #include "A_ObstacleSpawner.generated.h"
@@ -19,6 +20,9 @@ public:
 
 private:
 
+	UPROPERTY()
+	AGMB_GameMode* GameMode;
+	
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AA_Obstacle> ObstacleBlueprint;
 

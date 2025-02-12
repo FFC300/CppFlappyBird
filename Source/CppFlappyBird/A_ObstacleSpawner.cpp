@@ -3,6 +3,8 @@
 
 #include "A_ObstacleSpawner.h"
 
+#include "Kismet/GameplayStatics.h"
+
 // Sets default values
 AA_ObstacleSpawner::AA_ObstacleSpawner()
 {
@@ -24,6 +26,7 @@ void AA_ObstacleSpawner::BeginPlay()
 {
 	Super::BeginPlay();
 
+	GameMode = Cast<AGMB_GameMode>(UGameplayStatics::GetGameMode(this));
 	ObstacleDestroyer->OnComponentBeginOverlap.AddDynamic(this, &AA_ObstacleSpawner::OnOverlapBegin);
 
 	FVector SpawnLocation = GetActorLocation();
@@ -73,11 +76,10 @@ void AA_ObstacleSpawner::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent
 
 		AA_Obstacle* LastObstacle = Obstacles[(Obstacles.Num() - 2)];
 		FVector LastLocation = LastObstacle->GetActorLocation();
-		FVector NewLocation = FVector(LastLocation.X, LastLocation.Y, 0) + FVector(ObstacleGap, 0, FMath::RandRange(500, 1230));
+		FVector NewLocation = FVector(LastLocation.X, LastLocation.Y, 0) + FVector(ObstacleGap - ((GameMode->Lvl > 10) ? 1000 : GameMode->Lvl * 10), 0, FMath::RandRange(500, 1230));
 
 		Obstacle->SetActorLocation(NewLocation);
-		
-		
+
 	}
 }
 

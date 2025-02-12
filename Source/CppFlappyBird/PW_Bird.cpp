@@ -3,6 +3,7 @@
 
 #include "PW_Bird.h"
 
+#include "GMB_GameMode.h"
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values
@@ -11,6 +12,8 @@ APW_Bird::APW_Bird()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	
+	
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	Mesh->SetupAttachment(RootComponent);
 	
@@ -35,6 +38,8 @@ void APW_Bird::BeginPlay()
 {
 	Super::BeginPlay();
 
+	GameMode = Cast<AGMB_GameMode>(UGameplayStatics::GetGameMode(this));
+	
 	//Sets simulating physics and locks X, Y movement and Rotation
 	Mesh->SetSimulatePhysics(true);
 	Mesh->BodyInstance.bLockRotation = true;
@@ -70,9 +75,17 @@ void APW_Bird::Jump()
 void APW_Bird::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (OtherActor->ActorHasTag("Obstacle"))
+	if (OtherActor->ActorHasTag("Obstacle") || OtherComp->ComponentHasTag("Obstacle"))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Hitted"));
-		//UGameplayStatics::OpenLevel(this, FName(TEXT("World")), true);
+		UGameplayStatics::OpenLevel(this, FName(TEXT("World")), true);
+	}
+
+	if (OtherComp->ComponentHasTag("Score"))
+	{
+		if (GameMode)
+		{
+			GameMode->AddPoints(10);
+		}
 	}
 }
